@@ -1,0 +1,238 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Programming Paradigms</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/blood.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section>
+                    <h2> Programming Paradigms </h2>
+                    <small>Mikail Khan</small>
+                </section>
+
+                <section>
+                    <section> <h2> What is a Programming Paradigm? </h2> </section>
+                    <section>
+                        <q cite="Wikipedia">
+                            Programming paradigms are a way to classify programming 
+                            languages based on their features. Languages can be classified 
+                            into multiple paradigms.
+                        </q>
+                        <br>
+                        - Wikipedia
+                    </section>
+                    <section>
+                        <h3> Programming Paradigm Examples </h3>
+                        <hr>
+                        <p>
+                            <ul>
+                                <li> 
+                                    Imperative Programming 
+                                    <ul>
+                                        <li> Procedural Programming </li>
+                                        <li> Object-Oriented Programming </li>
+                                    </ul>
+                                </li>
+                                <li> Functional Programming </li>
+                                <li> Logic Programming </li>
+                                <li> Symbolic Programming </li>
+                            </ul>
+                        </p>
+                    </section>
+                </section>
+
+                <section>
+                    <section> <h2> Imperative Programming </h2> </section>
+                    <section>
+                        <h3> Imperative Programming </h3>
+                        <p>
+                            In imperative programming languages, the programmer writes a list of
+                            instructions for the computer to follow.
+                        </p>
+                        <p>
+                        <a href="#/procedural">Procedural</a> and <a href="#/oop">Object-Oriented</a> languages are both types of imperative programming.
+                        </p>
+                    </section>
+                    <section>
+                        <h3> Imperative Language Examples </h3>
+                        <hr>
+                        <p>
+                            <ul>
+                                <li> C, C++ </li>
+                                <li> Java </li>
+                                <li> Python </li>
+                                <li> x86 Assembly </li>
+                            </ul>
+                        </p>
+                    </section>
+                </section>
+
+                <section>
+                    <section id="procedural"> 
+                        <h2> Procedural Programming </h2>
+                        <hr>
+                        <p>
+                            In Procedural languages, instructions are grouped into procedures to facilitate code reuse.
+                        </p>
+                        <p>
+                            Oftentimes, procedures modify state but do not return anything.
+                        </p>
+                    </section>
+                    <section>
+                        <h3> Procedural Languages </h3>
+                        <hr>
+                        <p>
+                            <ul>
+                                <li> C </li>
+                                <li> SQL </li>
+                                <li> Bash/Powershell </li>
+                                <li> x86 Assembly </li>
+                            </ul>
+                        </p>
+                    </section>
+                    <section>
+                        <h3> Procedural Code </h3>
+                        <hr>
+                        <div class="r-stack">
+                            <div class="fragment fade-out">
+                                <pre>
+                                    <code data-trim>
+                                        void fizzbuzz(int n) {
+                                            for (int i = 0; i < n; i++) {
+                                                if (i % 3 == 0) 
+                                                    printf("Fizz");
+                                                if (i % 5 == 0)
+                                                    printf("Buzz");
+                                                if (!(i % 3 == 0 || i % 5 == 0))
+                                                    printf("%d", i);
+                                                printf("\n");
+                                            }
+                                        }
+                                    </code>
+                                </pre>
+                                <ul>
+                                    <li> 
+                                        Procedure interfaces with IO (modifies state) but doesn't return anything
+                                    </li>
+                                    <li> Uses a for-loop </li>
+                                    <li> <code>if</code> statements don't return anything </li>
+                                </ul>
+                            </div>
+                            <div class="fragment fade-in">
+                                <pre>
+                                    <code data-trim>
+                                        struct fizzbuzz_opts {
+                                            int fizz_n;
+                                            int buzz_n;
+                                            int max;
+                                        };
+
+                                        void fizzbuzz(struct fizzbuzz_opts opts) { ... }
+                                    </code>
+                                </pre>
+                                <ul>
+                                    <li> Structs don't contain any logic, just data </li>
+                                    <li> Procedure accepts structs as arguments </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+
+                <section>
+                    <section id="oop"> 
+                        <h2> Object-Oriented Programming </h2>
+                        <hr>
+                        <p>
+                            In OOP languages, code is grouped into classes that identify which state the code accesses.
+                        </p>
+                    </section>
+                    <section>
+                        <h3> OOP Languages </h3>
+                        <hr>
+                        <p>
+                            <ul>
+                                <li> Java </li>
+                                <li> C++ </li>
+                                <li> Python </li>
+                            </ul>
+                        </p>
+                    </section>
+                    <section>
+                        <h3> OOP Code </h3>
+                        <hr>
+                        <div class="r-stack">
+                            <div class="fragment fade-out">
+                                <pre>
+                                    <code data-trim>
+                                        void fizzbuzz(int n) {
+                                            for (int i = 0; i < n; i++) {
+                                                if (i % 3 == 0) 
+                                                    System.out.print("Fizz");
+                                                if (i % 5 == 0)
+                                                    System.out.print("Buzz");
+                                                if (!(i % 3 == 0 || i % 5 == 0))
+                                                    System.out.printf("%d", i);
+                                                System.out.println();
+                                            }
+                                        }
+                                    </code>
+                                </pre>
+                                <ul>
+                                    <li> Almost exactly the same in Java as C </li>
+                                    <li> <code>print</code> is a method of the <code>PrintStream</code> class, of which <code>System.out</code> is an instance.
+                                </ul>
+                            </div>
+                            <div class="fragment fade-in">
+                                <pre>
+                                    <code data-trim>
+                                        class FizzBuzz {
+                                            private int fizzN;
+                                            private int buzzN;
+                                            private int max;
+
+                                            void fizzBuzz() {
+                                                ...
+                                            }
+                                        }
+                                    </code>
+                                </pre>
+                                <ul>
+                                    <li> The class contains data format and logic </li>
+                                    <li> Within the method, the <code>this</code> keyword accesses instance data </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
