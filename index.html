@@ -22,6 +22,18 @@
                 </section>
 
                 <section>
+                    <h2> Objectives </h2>
+                    <hr>
+                    <p>
+                        <ul>
+                            <li> What is a programming paradigm? </li>
+                            <li> Summary of the main paradigms </li>
+                            <li> How paradigms can influence your problem solving thought process </li>
+                        </ul>
+                    </p>
+                </section>
+
+                <section>
                     <section> <h2> What is a Programming Paradigm? </h2> </section>
                     <section>
                         <q cite="Wikipedia">
@@ -138,7 +150,9 @@
                                             int max;
                                         };
 
-                                        void fizzbuzz(struct fizzbuzz_opts opts) { ... }
+                                        void fizzbuzz(struct fizzbuzz_opts opts) { 
+                                            ... 
+                                        }
                                     </code>
                                 </pre>
                                 <ul>
@@ -211,6 +225,113 @@
                                 <ul>
                                     <li> The class contains data format and logic </li>
                                     <li> Within the method, the <code>this</code> keyword accesses instance data </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+
+                <section>
+                    <section id="fp"> 
+                        <h2> Functional Programming </h2>
+                        <hr>
+                        <div class="r-stack">
+                            <p class="fragment fade-out">
+                                In Functional programming, programs are a single expression formed by the composition of pure functions.
+                            </p>
+                            <ul class="fragment fade-in">
+                                <li> No mutability </li>
+                                <li> No loops </li>
+                                <li> No side effects </li>
+                            </ul>
+                        </div>
+                    </section>
+                    <section>
+                        <h3> FP Languages </h3>
+                        <hr>
+                        <p>
+                            <ul>
+                                <li> Haskell </li>
+                                <li> OCaml </li>
+                                <li> Elixir </li>
+                            </ul>
+                        </p>
+                    </section>
+                    <section>
+                        <h3> Functional Code </h3>
+                        <hr>
+                        <div class="r-stack">
+                            <div class="fragment fade-out">
+                                <pre>
+                                    <code data-trim>
+                                        fizzbuzz :: Int -> [String]
+                                        fizzbuzz n = map helper [0..n]
+                                          where 
+                                            divisible f = (==0) . (`rem` f)
+                                            helper x
+                                              | divisible 3 x && divisible 5 x = "FizzBuzz"
+                                              | divisible 5 x = "Buzz"
+                                              | divisible 3 x = "Fizz"
+                                              | otherwise = show x
+
+                                        main = mapM_ putStrLn $ fizzbuzz 100
+                                    </code>
+                                </pre>
+                                <ul>
+                                    <li> <code>fizzbuzz</code> function is pure, IO is restricted to <code>main</code> </li>
+                                    <li> Makes use of higher order functions (<code>map</code>), and currying (<code>divisible</code>) </li>
+                                    <li> Kind of contrived </li>
+                                </ul>
+                            </div>
+                            <div class="fragment fade-in-then-out">
+                                <pre>
+                                    <code data-trim>
+                                        data FizzBuzzOpts = FizzBuzzOpts {
+                                            fizzN :: Int,
+                                            buzzN :: Int,
+                                            FizzBuzzMax :: Int,
+                                         }
+
+                                        fizzbuzz :: FizzBuzzOpts -> [String]
+                                        fizzbuzz opts = ...
+                                    </code>
+                                </pre>
+                                <ul>
+                                    <li> Mostly direct translation from procedural </li>
+                                    <li> "Record Syntax" can only be accessed through pattern matching or accessor methods </li>
+                                </ul>
+                            </div>
+                            <div class="fragment fade-in-then-out">
+                                <pre>
+                                    <code data-trim>
+                                        data Fizz = Fizz Int
+                                        data Buzz = Buzz Int
+                                        data Max  = Max Int
+
+                                        fizzbuzz :: Fizz -> Buzz -> Max -> [String]
+                                    </code>
+                                </pre>
+                                <ul>
+                                    <li> Similar to named/keyword arguments </li>
+                                    <li> A bit verbose </li>
+                                    <li> Can be flexible for more advanced applications using sum types and pattern matching </li>
+                                </ul>
+                            </div>
+                            <div class="fragment fade-in">
+                                <pre>
+                                    <code data-trim>
+                                        data Max   = Max Int
+                                        data Range = (Int, Int)
+                                        data Bounds = Max | Range
+
+                                        fizzbuzz :: Int -> Int -> Bounds -> [String]
+                                        fizzbuzz fizzN buzzN (Max m) = ...
+                                        fizzbuzz fizzN buzzN (Range (start, end)) = ...
+                                    </code>
+                                </pre>
+                                <ul>
+                                    <li> Specify either a <code>Max</code> or a <code>Range</code> </li>
+                                    <li> Code is cleanly divided through pattern matching </li>
                                 </ul>
                             </div>
                         </div>
