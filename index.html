@@ -240,9 +240,9 @@
                                 In Functional programming, programs are a single expression formed by the composition of pure functions.
                             </p>
                             <ul class="fragment fade-in">
-                                <li> No mutability </li>
-                                <li> No loops </li>
-                                <li> No side effects </li>
+                                <li> No mutability (no loops) </li>
+                                <li> Algebraic Data Types (ADTs) </li>
+                                <li> Often use ML based syntax </li>
                             </ul>
                         </div>
                     </section>
@@ -254,6 +254,7 @@
                                 <li> Haskell </li>
                                 <li> OCaml </li>
                                 <li> Elixir </li>
+                                <li> Microsoft Excel </li>
                             </ul>
                         </p>
                     </section>
@@ -264,23 +265,47 @@
                             <div class="fragment fade-out">
                                 <pre>
                                     <code data-trim>
-                                        fizzbuzz :: Int -> [String]
-                                        fizzbuzz n = map helper [0..n]
-                                          where 
-                                            divisible f = (==0) . (`rem` f)
-                                            helper x
-                                              | divisible 3 x && divisible 5 x = "FizzBuzz"
-                                              | divisible 5 x = "Buzz"
-                                              | divisible 3 x = "Fizz"
-                                              | otherwise = show x
+                                        fizzbuzz :: Int -> String
+                                        fizzbuzz n
+                                            | divisible_by 3 && divisible_by 5 = "FizzBuzz"
+                                            | divisible_by 5 = "Buzz"
+                                            | divisible_by 3 = "Fizz"
+                                            | otherwise = show x
+                                            where divisible_by = (==0) . (rem n)
 
-                                        main = mapM_ putStrLn $ fizzbuzz 100
+                                        main = mapM_ putStrLn $ map fizzbuzz [1..100]
                                     </code>
                                 </pre>
                                 <ul>
                                     <li> <code>fizzbuzz</code> function is pure, IO is restricted to <code>main</code> </li>
-                                    <li> Makes use of higher order functions (<code>map</code>), and currying (<code>divisible</code>) </li>
-                                    <li> Kind of contrived </li>
+                                    <li> 
+                                        Makes use of higher order functions (<code>map</code>), currying (<code>divisible_by</code>), 
+                                        and function composition (<code>.</code>)
+                                    </li>
+                                    <li> Functions are atomic and composable </li>
+                                </ul>
+                            </div>
+                            <div class="fragment fade-in-then-out">
+                                <pre>
+                                    <code data-trim>
+                                        def fizzbuzz(n) do
+                                            divisible_by = fn x -> rem(n, x) == 0 end
+                                            cond do
+                                                  divisible_by.(3) && divisible_by.(5) -> "FizzBuzz"
+                                                  divisible_by.(5) -> "Buzz"
+                                                  divisible_by.(3) -> "Fizz"
+                                                  true -> to_string(n)
+                                            end
+                                        end
+
+                                        def main() do
+                                            1..100 |> Enum.map(fizzbuzz) |> Enum.each(IO.puts())
+                                        end
+                                    </code>
+                                </pre>
+                                <ul>
+                                    <li> Elixir uses Ruby syntax and is not purely functional because it allows side effects </li>
+                                    <li> Pipe operator is similar to Bash, replaces <code>.function()</code> chains </li>
                                 </ul>
                             </div>
                             <div class="fragment fade-in-then-out">
@@ -289,7 +314,7 @@
                                         data FizzBuzzOpts = FizzBuzzOpts {
                                             fizzN :: Int,
                                             buzzN :: Int,
-                                            FizzBuzzMax :: Int,
+                                            fizzBuzzMax :: Int,
                                          }
 
                                         fizzbuzz :: FizzBuzzOpts -> [String]
@@ -320,13 +345,11 @@
                             <div class="fragment fade-in">
                                 <pre>
                                     <code data-trim>
-                                        data Max   = Max Int
-                                        data Range = (Int, Int)
-                                        data Bounds = Max | Range
+                                        data Bounds = Max Int | Range Int Int
 
                                         fizzbuzz :: Int -> Int -> Bounds -> [String]
                                         fizzbuzz fizzN buzzN (Max m) = ...
-                                        fizzbuzz fizzN buzzN (Range (start, end)) = ...
+                                        fizzbuzz fizzN buzzN (Range start end) = ...
                                     </code>
                                 </pre>
                                 <ul>
