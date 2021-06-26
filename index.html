@@ -119,7 +119,7 @@
                         <div class="r-stack">
                             <div class="fragment fade-out">
                                 <pre>
-                                    <code data-trim>
+                                    <code data-trim class="c">
                                         void fizzbuzz(int n) {
                                             for (int i = 0; i < n; i++) {
                                                 if (i % 3 == 0) 
@@ -143,7 +143,7 @@
                             </div>
                             <div class="fragment fade-in">
                                 <pre>
-                                    <code data-trim>
+                                    <code data-trim class="c">
                                         struct fizzbuzz_opts {
                                             int fizz_n;
                                             int buzz_n;
@@ -189,7 +189,7 @@
                         <div class="r-stack">
                             <div class="fragment fade-out">
                                 <pre>
-                                    <code data-trim>
+                                    <code data-trim class="java">
                                         void fizzbuzz(int n) {
                                             for (int i = 0; i < n; i++) {
                                                 if (i % 3 == 0) 
@@ -210,7 +210,7 @@
                             </div>
                             <div class="fragment fade-in">
                                 <pre>
-                                    <code data-trim>
+                                    <code data-trim class="java">
                                         class FizzBuzz {
                                             private int fizzN;
                                             private int buzzN;
@@ -264,7 +264,7 @@
                         <div class="r-stack">
                             <div class="fragment fade-out">
                                 <pre>
-                                    <code data-trim>
+                                    <code data-trim class="haskell">
                                         fizzbuzz :: Int -> String
                                         fizzbuzz n
                                             | divisible_by 3 && divisible_by 5 = "FizzBuzz"
@@ -287,7 +287,7 @@
                             </div>
                             <div class="fragment fade-in-then-out">
                                 <pre>
-                                    <code data-trim>
+                                    <code data-trim class="elixir">
                                         def fizzbuzz(n) do
                                             divisible_by = fn x -> rem(n, x) == 0 end
                                             cond do
@@ -310,7 +310,7 @@
                             </div>
                             <div class="fragment fade-in-then-out">
                                 <pre>
-                                    <code data-trim>
+                                    <code data-trim class="haskell">
                                         data FizzBuzzOpts = FizzBuzzOpts {
                                             fizzN :: Int,
                                             buzzN :: Int,
@@ -324,6 +324,93 @@
                                 <ul>
                                     <li> Mostly direct translation from procedural </li>
                                     <li> "Record Syntax" can only be accessed through pattern matching or accessor methods </li>
+                                </ul>
+                            </div>
+                            <div class="fragment fade-in-then-out">
+                                <pre>
+                                    <code data-trim class="haskell">
+                                        data Fizz = Fizz Int
+                                        data Buzz = Buzz Int
+                                        data Max  = Max Int
+
+                                        fizzbuzz :: Fizz -> Buzz -> Max -> [String]
+                                    </code>
+                                </pre>
+                                <ul>
+                                    <li> Similar to named/keyword arguments </li>
+                                    <li> A bit verbose </li>
+                                    <li> Can be flexible for more advanced applications using sum types and pattern matching </li>
+                                </ul>
+                            </div>
+                            <div class="fragment fade-in">
+                                <pre>
+                                    <code data-trim class="haskell">
+                                        data Bounds = Max Int | Range Int Int
+
+                                        fizzbuzz :: Int -> Int -> Bounds -> [String]
+                                        fizzbuzz fizzN buzzN (Max m) = ...
+                                        fizzbuzz fizzN buzzN (Range start end) = ...
+                                    </code>
+                                </pre>
+                                <ul>
+                                    <li> Specify either a <code>Max</code> or a <code>Range</code> </li>
+                                    <li> Code is cleanly divided through pattern matching </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <h3> Functional Data Structures</h3>
+                        <hr>
+                        <div class="r-stack">
+                            <div class="fragment fade-out">
+                                <pre>
+                                    <code data-trim class="haskell" data-line-numbers>
+                                        data Nat = Z | S Nat deriving Show
+                                        zero = Z
+                                        one = S Z
+                                        two = S one
+                                        three = S two
+
+                                        add :: Nat -> Nat -> Nat
+                                        add Z n = n
+                                        add (S a) b = add a (S b)
+
+                                        sub :: Nat -> Nat -> Nat
+                                        sub n Z = n
+                                        sub (S a) (S b) = sub a b 
+                                    </code>
+                                </pre>
+                                <ul>
+                                    <li> At its core, every complex type is raw data identified by a constructor </li>
+                                </ul>
+                            </div>
+                            <div class="fragment fade-in-then-out">
+                                <pre>
+                                    <code data-trim class="haskell" data-line-numbers>
+                                        data Shape
+                                            = Circle Float
+                                            | Rectangle Float Float
+                                            | Triangle Float Float
+
+                                        area :: Shape -> Float
+                                        area (Circle r) = 3.14 * r * r
+                                        area (Rectangle w h) = w * h
+                                        area (Triangle b h) = b * h / 2
+                                    </code>
+                                </pre>
+                                <ul>
+                                    <li> Algebraic data types include Sum Types (OR) as well as Product Types (And) </li>
+                                    <li> In OOP, this is generally done with abstract classes. </li>
+                                    <li> In procedural languages, this can be done with tagged unions </li>
+                                </ul>
+                            </div>
+                            <div class="fragment fade-in-then-out">
+                                <pre>
+                                    <code data-trim>
+                                    </code>
+                                </pre>
+                                <ul>
                                 </ul>
                             </div>
                             <div class="fragment fade-in-then-out">
