@@ -360,8 +360,6 @@
                         </div>
                     </section>
                     <section>
-                        <h3> Functional Data Structures</h3>
-                        <hr>
                         <div class="r-stack">
                             <div class="fragment fade-out">
                                 <pre>
@@ -407,15 +405,7 @@
                             </div>
                             <div class="fragment fade-in-then-out">
                                 <pre>
-                                    <code data-trim>
-                                    </code>
-                                </pre>
-                                <ul>
-                                </ul>
-                            </div>
-                            <div class="fragment fade-in-then-out">
-                                <pre>
-                                    <code data-trim>
+                                    <code data-trim class="haskell">
                                         data Fizz = Fizz Int
                                         data Buzz = Buzz Int
                                         data Max  = Max Int
@@ -429,9 +419,9 @@
                                     <li> Can be flexible for more advanced applications using sum types and pattern matching </li>
                                 </ul>
                             </div>
-                            <div class="fragment fade-in">
+                            <div class="fragment fade-in-then-out">
                                 <pre>
-                                    <code data-trim>
+                                    <code data-trim class="haskell">
                                         data Bounds = Max Int | Range Int Int
 
                                         fizzbuzz :: Int -> Int -> Bounds -> [String]
@@ -443,6 +433,90 @@
                                     <li> Specify either a <code>Max</code> or a <code>Range</code> </li>
                                     <li> Code is cleanly divided through pattern matching </li>
                                 </ul>
+                            </div>
+                            <div class="fragment fade-in-then-out">
+                                <pre>
+                                    <code data-trim class="haskell">
+                                        data BinOp
+                                            = Add
+                                            | Sub
+                                            | Mul
+                                            | Div
+
+                                        data Expr = AtomicExpr Int | BinaryExpr BinOp Expr Expr
+
+                                        eval :: Expr -> Int
+                                        eval (AtomicExpr v) = v
+                                        eval (BinaryExpr Add lhs rhs) = (eval lhs) + (eval rhs)
+                                        eval (BinaryExpr Sub lhs rhs) = (eval lhs) - (eval rhs)
+                                        eval (BinaryExpr Mul lhs rhs) = (eval lhs) * (eval rhs)
+                                        eval (BinaryExpr Div lhs rhs) = (eval lhs) / (eval rhs)
+                                    </code>
+                                </pre>
+                            </div>
+                            <div class="fragment fade-in-then-out">
+                                <pre>
+                                    <code data-trim class="java">
+                                        enum BinOp {
+                                            Add,
+                                            Sub,
+                                            Mul,
+                                            Div,
+                                        }
+
+                                        abstract class Expr {
+                                            int eval();
+
+                                            abstract class AtomicExpr extends Expr {
+                                                int val;
+
+                                                int eval() {
+                                                    return this.val;
+                                                }
+                                            }
+
+                                            abstract class BinaryExpr extends Expr {
+                                                BinOp op;
+                                                Expr lhs;
+                                                Expr rhs;
+
+                                                int eval() {
+                                                    return switch (op) {
+                                                        case BinOp.Add -> lhs.eval() + rhs.eval();
+                                                        case BinOp.Sub -> lhs.eval() - rhs.eval();
+                                                        case BinOp.Mul -> lhs.eval() * rhs.eval();
+                                                        case BinOp.Div -> lhs.eval() / rhs.eval();
+                                                    };
+                                                }
+                                            }
+                                        }
+                                    </code>
+                                </pre>
+                            </div>
+                            <div class="fragment fade-in-then-out">
+                                <pre>
+                                    <code data-trim class="scala">
+                                        abstract class BinOp
+                                        case object Add extends BinOp
+                                        case object Sub extends BinOp
+                                        case object Mul extends BinOp
+                                        case object Div extends BinOp
+
+                                        case class AtomicExpr(value: Int) extends Expr
+                                        case class BinaryExpr(op: BinOp, lhs: Expr, rhs: Expr) extends Expr
+                                        abstract class Expr {
+                                            def eval(): Int = {
+                                                this match {
+                                                    case AtomicExpr(value) => value
+                                                    case BinaryExpr(Add, lhs, rhs) => lhs.eval() + rhs.eval()
+                                                    case BinaryExpr(Sub, lhs, rhs) => lhs.eval() - rhs.eval()
+                                                    case BinaryExpr(Mul, lhs, rhs) => lhs.eval() * rhs.eval()
+                                                    case BinaryExpr(Div, lhs, rhs) => lhs.eval() / rhs.eval()
+                                                }
+                                            }
+                                        }
+                                    </code>
+                                </pre>
                             </div>
                         </div>
                     </section>
